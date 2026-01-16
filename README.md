@@ -1,3 +1,3 @@
-- Nom:
-- Prénom:
-- URL vercel: 
+- Nom: GARCIA
+- Prénom: Lucie
+- URL vercel: https://tpr212lg.netlify.app 
