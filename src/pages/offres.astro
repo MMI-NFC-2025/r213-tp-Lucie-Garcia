@@ -1,6 +1,41 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
+const offres = [
+    {
+        adresse: "2821 Lake Sevilla, Palm Harbor, TX",
+        favori: true,
+        id: "64l3n8nar836i5j",
+        nbChambres: 4,
+        nbSdb: 2,
+        nomMaison: "Beverly Springfield",
+        prix: 2700,
+        surface: 45,
+        imgUrl: "image1.png",
+    },
+    {
+        adresse: "2699 Green Valley, Highland Lake",
+        favori: true,
+        id: "lo831zeg10hpm9y",
+        nbChambres: 4,
+        nbSdb: 2,
+        nomMaison: "Palm Harbor",
+        prix: 2095,
+        surface: 42,
+        imgUrl: "image2.png",
+    },
+    {
+        adresse: "909 Woodland St, Michigan, IN",
+        favori: false,
+        id: "s1zuhj19x8eb242",
+        nbChambres: 4,
+        nbSdb: 3,
+        nomMaison: "Faulkner Ave",
+        prix: 4550,
+        surface: 80,
+        imgUrl: "image3.png",
+    },
+];
 ---
 
 <Layout titre="Offres">
@@ -10,26 +45,15 @@ import "../styles/global.css";
     <p class="flex font-extralight text-2xl justify-center items-center p-10">
         Découvrez nos offres exceptionnelles.
     </p>
-    <p class="flex font-extralight text-sm p-10">
-        Novo denique perniciosoque exemplo idem Gallus ausus est inire flagitium
-        grave, quod Romae cum ultimo dedecore temptasse aliquando dicitur
-        Gallienus, et adhibitis paucis clam ferro succinctis vesperi per
-        tabernas palabatur et conpita quaeritando Graeco sermone, cuius erat
-        inpendio gnarus, quid de Caesare quisque sentiret. et haec confidenter
-        agebat in urbe ubi pernoctantium luminum claritudo dierum solet imitari
-        fulgorem. postremo agnitus saepe iamque, si prodisset, conspicuum se
-        fore contemplans, non nisi luce palam egrediens ad agenda quae putabat
-        seria cernebatur. et haec quidem medullitus multis gementibus agebantur.
-        Ultima Syriarum est Palaestina per intervalla magna protenta, cultis
-        abundans terris et nitidis et civitates habens quasdam egregias, nullam
-        nulli cedentem sed sibi vicissim velut ad perpendiculum aemulas:
-        Caesaream, quam ad honorem Octaviani principis exaedificavit Herodes, et
-        Eleutheropolim et Neapolim itidemque Ascalonem Gazam aevo superiore
-        exstructas. Quod si rectum statuerimus vel concedere amicis, quidquid
-        velint, vel impetrare ab iis, quidquid velimus, perfecta quidem
-        sapientia si simus, nihil habeat res vitii; sed loquimur de iis amicis
-        qui ante oculos sunt, quos vidimus aut de quibus memoriam accepimus,
-        quos novit vita communis. Ex hoc numero nobis exempla sumenda sunt, et
-        eorum quidem maxime qui ad sapientiam proxime accedunt.
-    </p>
+
+    <ul>
+        {
+            offres.map(
+                (offre) => <li>{offre.nomMaison}</li>,
+                // afficher les nom des maisons sous forme de liste <ul>.
+            )
+        }
+    </ul>
+
+    <p class="flex font-extralight text-sm p-10"></p>
 </Layout>
