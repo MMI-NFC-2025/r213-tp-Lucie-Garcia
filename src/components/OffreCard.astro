@@ -1,0 +1,39 @@
+---
+const { offre } = Astro.props;
+---
+
+<div
+    class="offre-card border rounded-lg overflow-hidden shadow-lg m-4 hover:shadow-xl hover:scale-101 transition-transform duration-300"
+>
+    <img src={offre.imgUrl} class="w-full h-48 object-cover" />
+    <div class="p-4">
+        <h2 class="text-xl font-bold mb-2">{offre.nomMaison}</h2>
+        <p class="text-gray-700 mb-1">Adresse: {offre.adresse}</p>
+        <p class="text-gray-700 mb-1">
+            Chambres: {offre.nbChambres} | Salles de bain: {offre.nbSdb}
+        </p>
+        <p class="text-gray-700 mb-1">Surface: {offre.surface} m²</p>
+        <div class="flex justify-between">
+            <p class="text-gray-900 font-bold text-lg">Prix: ${offre.prix}</p>
+            <img
+                src={offre.favori
+                    ? "/src/assets/coeur.svg"
+                    : "/src/assets/coeur_vide.svg"}
+                alt="Favori"
+                class="heart-btn w-6 h-6 mt-2"
+            />
+        </div>
+    </div>
+</div>
+
+<script>
+    //@ts-nocheck
+    const cards = document.querySelectorAll(".heart-btn");
+    cards.forEach((offre) => {
+        offre.addEventListener("click", () => {
+            const isFavori = offre.dataset.favori === "true";
+            offre.dataset.favori = isFavori ? "false" : "true";
+            console.log(offre.dataset.favori);
+        });
+    });
+</script>
