@@ -7,7 +7,12 @@ const { offre } = Astro.props;
 <div
     class="offre-card border rounded-lg overflow-hidden shadow-lg m-4 hover:shadow-xl hover:scale-101 transition-transform duration-300"
 >
-    <PbImage record={offre} recordImage={offre.Images[0]} />
+    <PbImage
+        record={offre}
+        recordImage={offre.Images[0]}
+        width={400}
+        height={300}
+    />
     <div class="p-4">
         <h2 class="text-xl font-bold mb-2">{offre.NomMaison}</h2>
     </div>
