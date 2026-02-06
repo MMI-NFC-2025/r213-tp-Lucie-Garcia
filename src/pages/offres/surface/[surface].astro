@@ -1,0 +1,17 @@
+---
+import { getSurface } from "../../../backend.mjs";
+import Base from "../../../layouts/Layout.astro";
+
+const { surface } = Astro.params;
+const offres = await getSurface(surface);
+---
+<Base titre={`Maisons ≥ ${surface} m²`}>
+    <h2>Maisons avec une surface ≥ {surface} m²</h2>
+    <ul>
+        {offres.map((offre) => (
+            <li>
+                <strong>{offre.NomMaison}</strong> — {offre.Adresse} — {offre.Surface} m²
+            </li>
+        ))}
+    </ul>
+</Base>
