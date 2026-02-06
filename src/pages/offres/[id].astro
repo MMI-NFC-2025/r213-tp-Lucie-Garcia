@@ -1,15 +1,91 @@
 ---
 import { getOffre } from "../../backend.mjs";
 import Base from "../../layouts/Layout.astro";
+import PbImage from "../../components/PbImage.astro";
 
 const { id } = Astro.params;
 const offre = await getOffre(id);
 ---
 
 <Base titre={offre.NomMaison}>
-    <h2>{offre.NomMaison}</h2>
-    <ul>
-        <li>{offre.Adresse}</li>
-        ...
-    </ul>
+    <div class="p-4 flex flex-col items-center bg-gray-200">
+        <div id="carousel" class="relative rounded-3xl overflow-hidden">
+            <div class="carousel-image" data-index="0">
+                <PbImage
+                    record={offre}
+                    recordImage={offre.Images[0]}
+                    width={800}
+                    height={600}
+                />
+            </div>
+            <div class="carousel-image" data-index="1" style="display: none;">
+                <PbImage
+                    record={offre}
+                    recordImage={offre.Images[1]}
+                    width={800}
+                    height={600}
+                />
+            </div>
+            <div class="carousel-image" data-index="2" style="display: none;">
+                <PbImage
+                    record={offre}
+                    recordImage={offre.Images[2]}
+                    width={800}
+                    height={600}
+                />
+            </div>
+        </div><div class="flex justify-center gap-2 mt-2">
+            <button
+                id="prev"
+                class="bg-slate-600 rounded-lg text-white px-3 py-1 hover:bg-slate-500"
+                >←</button
+            >
+            <button
+                id="next"
+                class="bg-slate-600 rounded-lg text-white px-3 py-1 hover:bg-slate-500"
+                >→</button
+            >
+        </div>
+    </div>
+    <div class="p-4">
+        <div class="flex justify-between text-slate-800">
+            <h2 class="text-3xl font-bold mb-4">{offre.NomMaison}</h2>
+            <p class="text-2xl font-bold">{offre.Prix} €</p>
+        </div>
+        <p class="text-lg mb-2 font-semibold text-gray-500">
+            Adresse : {offre.Adresse}
+        </p>
+        <div class="flex gap-10 my-10 text-white">
+            <p class="text-lg mb-2 bg-gray-400 p-2 rounded-xl">
+                Surface : {offre.Surface} m²
+            </p>
+            <p class="text-lg mb-2 bg-gray-400 p-2 rounded-xl">
+                Chambres {offre.nbChambres}
+            </p>
+            <p class="text-lg mb-2 bg-gray-400 p-2 rounded-xl">
+                Salles de Bain : {offre.nbSdb}
+            </p>
+        </div>
+        <script>
+            //@ts-nocheck
+            const images = document.querySelectorAll(".carousel-image");
+            let current = 0;
+
+            function show(index) {
+                images.forEach((img, i) => {
+                    img.style.display = i === index ? "block" : "none";
+                });
+            }
+
+            document.getElementById("prev")?.addEventListener("click", () => {
+                current = (current - 1 + images.length) % images.length;
+                show(current);
+            });
+
+            document.getElementById("next")?.addEventListener("click", () => {
+                current = (current + 1) % images.length;
+                show(current);
+            });
+        </script>
+    </div>
 </Base>

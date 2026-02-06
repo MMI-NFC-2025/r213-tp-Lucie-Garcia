@@ -5,7 +5,7 @@ const { offre } = Astro.props;
 ---
 
 <div
-    class="offre-card border rounded-lg overflow-hidden shadow-lg m-4 hover:shadow-xl hover:scale-101 transition-transform duration-300"
+    class="offre-card border-gray-800 border-2 bg-gray-800 rounded-lg overflow-hidden shadow-lg m-4 hover:shadow-xl hover:scale-101 transition-transform duration-300"
 >
     <PbImage
         record={offre}
@@ -13,8 +13,23 @@ const { offre } = Astro.props;
         width={400}
         height={300}
     />
-    <div class="p-4">
-        <h2 class="text-xl font-bold mb-2">{offre.NomMaison}</h2>
+    <div class="p-4 text-white">
+        <div class="flex justify-between">
+            <h2 class="text-xl font-bold mb-2">{offre.NomMaison}</h2>
+            <p class="text-gray-400 text-xl font-bold">{offre.Prix} €</p>
+        </div>
+        <div class="flex gap-2 mb-2">
+            <p class="text-black text-sm mb-2 p-1 rounded-sm bg-gray-400">
+                {offre.Adresse}
+            </p>
+            <p class="text-black text-sm mb-2 p-1 rounded-sm bg-gray-400">
+                {offre.Surface} m²
+            </p>
+        </div>
+
+        <a
+            class="text-gray-500 hover:underline hover:text-gray-300"
+            href={`/offres/${offre.id}`}>Voir plus</a
+        >
     </div>
-    <a href={`/offres/${offre.id}`}>Voir plus</a>
 </div>

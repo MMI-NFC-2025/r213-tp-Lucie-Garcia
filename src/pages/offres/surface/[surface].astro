@@ -1,17 +1,42 @@
 ---
 import { getSurface } from "../../../backend.mjs";
+import PbImage from "../../../components/PbImage.astro";
 import Base from "../../../layouts/Layout.astro";
 
 const { surface } = Astro.params;
 const offres = await getSurface(surface);
 ---
+
 <Base titre={`Maisons ≥ ${surface} m²`}>
-    <h2>Maisons avec une surface ≥ {surface} m²</h2>
-    <ul>
-        {offres.map((offre) => (
-            <li>
-                <strong>{offre.NomMaison}</strong> — {offre.Adresse} — {offre.Surface} m²
-            </li>
-        ))}
+    <h2 class="font-bold text-3xl p-5">Maisons avec une surface ≥ {surface} m²</h2>
+    <ul class="p-4 flex flex-row gap-4 flex-wrap">
+        {
+            offres.map((offre) => (
+                <div class="flex ">
+                    <div class="m-4 border-2 border-gray-800 rounded-lg mb-4 w-100">
+                        <PbImage
+                            record={offre}
+                            recordImage={offre.Images[0]}
+                            width={400}
+                            height={300}
+                        />
+                        <li class="p-4">
+                            <h1 class="font-bold text-4xl">
+                                {offre.NomMaison}
+                            </h1>
+                            <div class="flex gap-10 align-middle mt-4 justify-between">
+                                <p>{offre.Adresse}</p>
+                                <p class="bg-gray-400 p-2 rounded-xl ">
+                                    {" "}
+                                    {offre.Surface} m²{" "}
+                                </p>
+                            </div>
+                            <a class="text-gray-500 hover:underline hover:text-gray-300"
+            href={`/offres/${offre.id}`}>Voir plus</a>
+                        </li>
+                    </div>
+                </div>
+            ))
+        }
     </ul>
 </Base>
