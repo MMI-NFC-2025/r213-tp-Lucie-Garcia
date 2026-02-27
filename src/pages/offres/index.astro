@@ -6,6 +6,28 @@ import { getOffres } from "../../backend.mjs";
 import Surface from "./surface/[surface].astro";
 const offres = await getOffres();
 console.log("Offres dans la page:", offres);
+import { filterByPrix } from "../../backend.mjs";
+
+let message = "";
+let Offres = [];
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt(data.get("minPrix"));
+    const maxPrix = parseInt(data.get("maxPrix"));
+
+    if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+        Offres = await filterByPrix(minPrix, maxPrix);
+        if (Offres.length === 0) {
+            message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+        } else {
+            message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+        }
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+    }
+} else {
+    Offres = await getOffres();
+}
 ---
 
 <Layout titre="Offres">
@@ -26,6 +48,15 @@ console.log("Offres dans la page:", offres);
         class="ml-7 text-slate-500 hover:underline"
         >Voir maisons ayant une surface supérieure à 80 m²</a
     >
+    <form
+        action="/offres"
+        method="POST"
+        class="flex gap-4 items-center my-4 ml-7"
+    >
+        <input type="number" name="minPrix" placeholder="Prix minimum" />
+        <input type="number" name="maxPrix" placeholder="Prix maximum" />
+        <input type="submit" value="Filtrer par prix" />
+    </form>
     <a href="/offres/add" class="ml-7 text-slate-500 hover:underline"
         >Ajouter une offre</a
     >
