@@ -67,3 +67,7 @@ export async function filterByPrix(minPrix, maxPrix) {
         return [];
     }
 }
+
+export async function setFavori(house) {
+    await db.collection('maison').update(house.id, { favori: !house.favori });
+}

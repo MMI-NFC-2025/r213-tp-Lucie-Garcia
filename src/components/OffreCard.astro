@@ -31,5 +31,40 @@ const { offre } = Astro.props;
             class="text-gray-500 hover:underline hover:text-gray-300"
             href={`/offres/${offre.id}`}>Voir plus</a
         >
+        <button
+            class="favoriteButton absolute bottom-0 left-0 p-2 text-white rounded-br-lg"
+            data-offre={JSON.stringify(offre)}
+        >
+            <img
+                id="favorite-icon"
+                src={offre.isFavorite ? "favorite_filled.png" : "favorite.png"}
+                alt="Favorite Icon"
+                class="w-6 h-6"
+            />
+        </button>
     </div>
 </div>
+
+<script>
+    //@ts-nocheck
+    import { setFavori } from "../backend.mjs";
+    const favoriteButtons = document.querySelectorAll(".favoriteButton");
+
+    favoriteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const offreData = JSON.parse(button.dataset.offre || "{}");
+            const newFavori = !offreData.favori;
+
+            setFavori(offreData);
+
+            const favIcon = button.querySelector("#favorite-icon");
+            if (favIcon) {
+                favIcon.src = offreData.isFavorite
+                    ? "/favorite_filled.png"
+                    : "/favorite.png";
+            }
+            offreData.favori = newFavori;
+            button.dataset.offre = JSON.stringify(offreData);
+        });
+    });
+</script>
